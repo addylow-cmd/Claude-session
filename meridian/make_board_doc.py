@@ -276,29 +276,66 @@ ar2 = ap2.add_run(
 set_font(ar2, size=10, color=WHITE)
 
 decisions = [
-    ("Decision 1 — AI positioning:",
-     "Are we an agentic work platform (AI-first, PM as one surface) or a PM tool with AI features? "
-     "This changes R&D priorities, sales motion, and pricing model. I have a strong view. "
-     "I need the board's conviction before Investor Day on March 11."),
-    ("Decision 2 — Consumption pricing:",
-     "The move from per-seat to per-seat-plus-consumption for Copilot is a strategic decision, "
-     "not a product decision. The CFO and CRO need board direction to finalize the model. "
-     "Every quarter we delay costs us enterprise renewals."),
-    ("Decision 3 — Roadmap prioritization:",
-     "The 2026 AI roadmap has six major commitments. Engineering can execute three well or six poorly. "
-     "I will present my recommended three. I need the board to hold the line with me "
-     "when stakeholders push for the other three."),
+    (
+        "Decision 1 — AI positioning:",
+        "Are we an agentic work platform (AI-first, PM as one surface) or a PM tool with AI features? "
+        "This changes R&D priorities, sales motion, and pricing model. I have a strong view. "
+        "I need the board's conviction before Investor Day on March 11.",
+        [
+            "28% of sales reps cannot articulate Meridian's AI differentiation vs. Asana — cited in 28% of sales open-ends (Employee Survey, Oct 2025)",
+            "Copilot 44% attach rate on enterprise Q4 renewals shows AI is already a buying criterion, not a nice-to-have",
+            "R&D at 25.4% of revenue (2025) — highest since IPO — without a declared platform identity, spend is unfocused",
+            "Investor Day is March 11: public positioning must match internal conviction or we create a credibility gap",
+        ],
+    ),
+    (
+        "Decision 2 — Consumption pricing:",
+        "The move from per-seat to per-seat-plus-consumption for Copilot is a strategic decision, "
+        "not a product decision. The CFO and CRO need board direction to finalize the model. "
+        "Every quarter we delay costs us enterprise renewals.",
+        [
+            "Current Copilot price: $40/seat/month add-on — at 710 seats this yields ~$340K ARR run-rate; consumption model would tie revenue to actual agent usage and scale faster with enterprise adoption",
+            "Mid-market renewals already demanding Copilot bundled at no cost (Q3 2025 earnings); without a clear model we are giving it away or losing deals",
+            "CPO memo explicitly states: 'The Copilot pricing model is a strategic decision, not a product decision — CPO recommends CFO and CRO jointly own this'",
+            "Consumption revenue requires different forecasting discipline and sales compensation design — the longer we wait, the more 2026 quota plans are built on the wrong model",
+        ],
+    ),
+    (
+        "Decision 3 — Roadmap prioritization:",
+        "The 2026 AI roadmap has six major commitments. Engineering can execute three well or six poorly. "
+        "I will present my recommended three. I need the board to hold the line with me "
+        "when stakeholders push for the other three.",
+        [
+            "2025 delivery record: 6 of 12 commitments slipped ≥1 quarter; 2 deferred outright — on a plan with fewer competing priorities than 2026",
+            "Engineering net adds in 2026: ~25 actual vs. 80 assumed in the plan (15% annual attrition on 750-person org)",
+            "The six 2026 commitments span: Copilot governance suite (Q1), agent builder (Q2), resource mgmt module (Q2), workflow marketplace (Q3), pricing model refresh (Q3), GxP environment (Q4) — each is a multi-quarter engineering effort",
+            "Helio retention cliff in 2026: the agent-builder depends on 28 Helio engineers whose cash compensation cliff arrives this year; if they leave, the Q2 commitment is at risk",
+        ],
+    ),
 ]
 
-for label, text in decisions:
+for label, text, data_points in decisions:
     dp = ask_cell.add_paragraph()
-    dp.paragraph_format.space_before = Pt(3)
-    dp.paragraph_format.space_after  = Pt(5)
+    dp.paragraph_format.space_before = Pt(6)
+    dp.paragraph_format.space_after  = Pt(2)
     dp.paragraph_format.left_indent  = Inches(0.2)
     dr = dp.add_run(f"{label}  ")
     set_font(dr, size=10, bold=True, color=RGBColor(0x88, 0xBB, 0xDD))
     dr2 = dp.add_run(text)
     set_font(dr2, size=10, color=WHITE)
+
+    for pt in data_points:
+        bp = ask_cell.add_paragraph()
+        bp.paragraph_format.space_before = Pt(1)
+        bp.paragraph_format.space_after  = Pt(1)
+        bp.paragraph_format.left_indent  = Inches(0.45)
+        br = bp.add_run(f"▸  {pt}")
+        set_font(br, size=8.5, color=RGBColor(0xCC, 0xDD, 0xEE))
+
+    # spacer after each decision
+    sp = ask_cell.add_paragraph()
+    sp.paragraph_format.space_before = Pt(2)
+    sp.paragraph_format.space_after  = Pt(2)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # CLOSING LINE
